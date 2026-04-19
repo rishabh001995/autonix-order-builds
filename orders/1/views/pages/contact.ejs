@@ -1,8 +1,8 @@
 <section class="page-hero">
   <div class="container narrow">
     <p class="eyebrow">Contact</p>
-    <h1 class="display display--sm">Start a conversation</h1>
-    <p class="lead">Tell us about your goals in 12. We reply to serious inquiries promptly.</p>
+    <h1 class="display display--sm">Tell us what you are shipping next</h1>
+    <p class="lead">Share your company, regions, and timeline. We reply to serious B2B inquiries with next steps — not automated fluff.</p>
   </div>
 </section>
 
@@ -10,10 +10,10 @@
   <div class="container split">
     <div>
       <% if (typeof sent !== 'undefined' && sent) { %>
-        <div class="notice notice--success" role="status">Thank you — your message was sent.</div>
+        <div class="notice notice--success" role="status">Thank you — we received your message and will follow up soon.</div>
       <% } %>
       <% if (typeof error !== 'undefined' && error) { %>
-        <div class="notice notice--error" role="alert">Please complete all fields.</div>
+        <div class="notice notice--error" role="alert">Please complete name, email, and message. If this persists, email us directly.</div>
       <% } %>
       <form class="stack-form" method="post" action="/contact" novalidate>
         <div class="field">
@@ -21,28 +21,35 @@
           <input id="name" name="name" type="text" required autocomplete="name" />
         </div>
         <div class="field">
-          <label for="email">Email</label>
+          <label for="email">Work email</label>
           <input id="email" name="email" type="email" required autocomplete="email" />
         </div>
         <div class="field">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="5" required></textarea>
+          <label for="company">Company <span class="optional">(optional)</span></label>
+          <input id="company" name="company" type="text" autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label for="message">How can we help?</label>
+          <textarea id="message" name="message" rows="5" required placeholder="Volume, timeline, regions, integration needs…"></textarea>
         </div>
         <button type="submit" class="btn">Send message</button>
       </form>
       <p class="muted small">
-        Optional: connect <strong>Zapier / Make</strong> by setting <code>CONTACT_WEBHOOK_URL</code> — form submissions POST as JSON to your automation.
+        Optional: connect <strong>Zapier / Make</strong> by setting <code>CONTACT_WEBHOOK_URL</code> — submissions POST as JSON to your automation. Leads are also stored in the site database for your team.
       </p>
     </div>
     <div class="card">
-      <h2 class="h3">WhatsApp</h2>
+      <h2 class="h3">Direct line</h2>
+      <p class="muted">Client: <strong>John Doe</strong> · <a href="mailto:user@example.com">user@example.com</a></p>
+      <p class="muted">Workspace: <strong>John&apos;s Workspace</strong></p>
+      <h2 class="h3 mt-lg">WhatsApp</h2>
       <% if (whatsappNumber) { %>
         <p><a class="btn btn--ghost" href="https://wa.me/<%= whatsappNumber %>" target="_blank" rel="noopener noreferrer">Message on WhatsApp</a></p>
       <% } else { %>
-        <p class="muted">WhatsApp can be enabled by setting <code>WHATSAPP_NUMBER</code> in your environment (digits only, international format).</p>
+        <p class="muted">Enable WhatsApp by setting <code>WHATSAPP_NUMBER</code> in your environment (digits only, international format).</p>
       <% } %>
-      <h2 class="h3 mt-lg">Office region</h2>
-      <p class="muted">Primary region: <strong>12</strong>. We coordinate site visits and shipping details as your transaction requires.</p>
+      <h2 class="h3 mt-lg">Region</h2>
+      <p class="muted">We focus on buyers and partners across the <strong>United States</strong>, with shipping coordination included when your program moves physical products.</p>
     </div>
   </div>
 </section>

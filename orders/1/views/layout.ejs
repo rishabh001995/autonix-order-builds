@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title><%= typeof pageTitle !== 'undefined' ? pageTitle : '12' %></title>
+  <title><%= typeof pageTitle !== 'undefined' ? pageTitle : 'Stark Industries' %></title>
   <meta name="description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : '' %>" />
   <link rel="canonical" href="<%= siteUrl %><%= typeof canonicalPath !== 'undefined' ? canonicalPath : '' %>" />
-  <meta property="og:title" content="<%= typeof pageTitle !== 'undefined' ? pageTitle : '12' %>" />
+  <meta property="og:title" content="<%= typeof pageTitle !== 'undefined' ? pageTitle : 'Stark Industries' %>" />
   <meta property="og:description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : '' %>" />
   <meta property="og:url" content="<%= siteUrl %><%= typeof canonicalPath !== 'undefined' ? canonicalPath : '' %>" />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Sans:wght@500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/main.css" />
   <% if (gaId) { %>
   <script async src="https://www.googletagmanager.com/gtag/js?id=<%= gaId %>"></script>
@@ -28,21 +28,12 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="logo" href="/">12</a>
+      <a class="logo" href="/">Stark Industries</a>
       <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>Menu</button>
       <nav id="site-nav" class="site-nav" data-nav>
         <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/blog">Insights</a>
-        <a href="/testimonials">Testimonials</a>
+        <a href="/pricing">Pricing</a>
         <a href="/contact">Contact</a>
-        <% if (currentUser) { %>
-          <a href="/account">Account</a>
-          <form class="inline-form" action="/logout" method="post"><button type="submit" class="link-button">Sign out</button></form>
-        <% } else { %>
-          <a href="/login">Sign in</a>
-          <a class="btn btn--small btn--ghost" href="/register">Register</a>
-        <% } %>
       </nav>
     </div>
   </header>
@@ -52,22 +43,21 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
-        <div class="logo footer-logo">12</div>
-        <p class="muted">Luxury real estate and curated content for 12 — serving businesses and individuals.</p>
+        <div class="logo footer-logo">Stark Industries</div>
+        <p class="muted">Connect People — B2B hardware and USA shipping for teams that need speed without sacrificing accountability.</p>
       </div>
       <div>
-        <h2 class="footer-heading">Explore</h2>
+        <h2 class="footer-heading">Site</h2>
         <ul class="footer-links">
-          <li><a href="/about">About</a></li>
-          <li><a href="/blog">Insights</a></li>
-          <li><a href="/testimonials">Testimonials</a></li>
-          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/contact">Contact</a></li>
         </ul>
       </div>
       <div>
         <h2 class="footer-heading">Connect</h2>
         <ul class="footer-links">
-          <li><a href="/contact">Contact form</a></li>
+          <li><a href="/contact">Request a quote</a></li>
           <% if (whatsappNumber) { %>
           <li><a href="https://wa.me/<%= whatsappNumber %>" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
           <% } %>
@@ -75,7 +65,7 @@
       </div>
     </div>
     <div class="container footer-bottom">
-      <span>&copy; <%= new Date().getFullYear() %> 12. Real estate in 12.</span>
+      <span>&copy; <%= new Date().getFullYear() %> Stark Industries. USA-focused B2B. Early startup.</span>
     </div>
   </footer>
   <script src="/js/main.js" defer></script>

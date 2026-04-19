@@ -1,48 +1,58 @@
-# Autonix Order #1 — 12 (Real Estate)
+# Autonix Order #1 — Stark Industries
 
-Standalone Node.js website for client **John Doe** — luxury real estate and content site for **12**, region **12**, serving B2B and B2C audiences with authentication, blog search, testimonials, and integration hooks (Google Analytics, WhatsApp, Zapier/Make).
+Standalone Node.js + Express site for **Stark Industries** (“Connect People”): a dark, tech-forward **B2B landing page** for **physical products** with **USA** shipping, **lead generation**, and **Pricing** + **Contact** flows. Schema: **`autonix_order_1`** only.
 
 ## Requirements
 
 - **Node.js** LTS (v20+)
-- **MySQL** with dedicated schema **`autonix_order_1`** only
+- **MySQL** with dedicated schema **`autonix_order_1`**
 
 ## Install
 
 ```bash
 cd orders/1
 cp .env.example .env
-# Edit .env — set DATABASE_* and SESSION_SECRET
+# Edit .env — set ORDER_DB_* and PORT
 npm install
 ```
 
 ### Database
 
-Create the schema and tables (recommended):
+Create schema and the `leads` table:
 
 ```bash
 mysql -u YOUR_USER -p < sql/001_init.sql
-mysql -u YOUR_USER -p < sql/002_seed.sql
 ```
 
-Alternatively, after `001_init.sql`, set `SYNC_DB=true` once in `.env` to let Sequelize create tables from models, then set it back to `false`.
+If this database was created by an older order template (users, blog, sessions), run once:
+
+```bash
+mysql -u YOUR_USER -p < sql/003_migrate_legacy_schema.sql
+```
+
+Alternatively, set `SYNC_DB=true` **once** in `.env` to let Sequelize create the `leads` table, then set it back to `false`.
 
 ## Environment variables
 
-See **`.env.example`** for all variables. Important:
+See **`.env.example`**. Do **not** commit `.env`.
 
 | Variable | Description |
 |----------|-------------|
-| `PORT` | HTTP port (default **3100** in example) |
-| `DATABASE_*` | MySQL connection — database name must be **`autonix_order_1`** |
-| `SESSION_SECRET` | Random string for signed cookies (required in production) |
+| `PORT` | HTTP port (example **3100** — avoid forbidden ports listed below) |
+| `ORDER_DB_HOST`, `ORDER_DB_USER`, `ORDER_DB_PASSWORD` | MySQL admin connection (on Autonix servers these align with `ORDER_MYSQL_ADMIN_*` unless overridden) |
+| `ORDER_DB_PORT` | MySQL port (default **3306**) |
+| `ORDER_DB_NAME` | Must be **`autonix_order_1`** |
 | `SYNC_DB` | `true` only for initial table creation if not using SQL migrations |
-| `GA_MEASUREMENT_ID` | Google Analytics 4 ID (`G-…`) |
-| `WHATSAPP_NUMBER` | Digits only, international (e.g. `15551234567`) |
-| `CONTACT_WEBHOOK_URL` | Optional Zapier/Make webhook — contact form POSTs JSON |
+| `SESSION_SECRET` | Reserved / optional for future features |
+| `GA_MEASUREMENT_ID` | Google Analytics 4 (`G-…`) |
+| `WHATSAPP_NUMBER` | Digits only, international |
+| `CONTACT_WEBHOOK_URL` | Optional Zapier/Make webhook — contact form also **stores leads in MySQL** |
 | `SITE_URL` | Canonical base URL (no trailing slash) |
+| `PM2_APP_NAME` | e.g. **`autonix-order-1-dev`** (dev) or **`autonix-order-1-main`** (production) |
 
-Do **not** commit `.env`; only `.env.example` belongs in git.
+**Forbidden ports** (do not bind the app to): 80, 443, 2000, 3000, 4000, 5000, 7000, 8000, 9000, 5050, 6060, 6769, 6770, 2020, 4200.
+
+Legacy `DATABASE_*` variables are still read by `db.js` if `ORDER_DB_*` is not set.
 
 ## Run
 
@@ -52,30 +62,33 @@ Development:
 npm run dev
 ```
 
-Production with **PM2** (ecosystem file: `ecosystem.config.cjs`, app name **`autonix-order-1`**):
+Production with **PM2** (`ecosystem.config.cjs`):
 
 ```bash
+# In .env set PM2_APP_NAME=autonix-order-1-dev   (dev server)
+# or PM2_APP_NAME=autonix-order-1-main          (production)
 pm2 start ecosystem.config.cjs
 pm2 save
 ```
 
-Ensure `PORT=3100` (or your chosen allowed port) is set in `.env`.
+Deploy paths (Autonix): **`dev`** → `/home/xor/1-dev/orders/1/`, **`main`** → `/home/xor/1-main/orders/1/`.
+
+Preview URL shape (dev): `http://183.82.156.69:3100` (or HTTPS if terminated upstream).
 
 ## Health check
 
-After deploy: **`GET /health`** — returns JSON `{ "ok": true, "service": "autonix-order-1", ... }`.
+**`GET /health`** returns JSON, e.g. `{ "ok": true, "service": "autonix-order-1", ... }`.
 
-Example: `http://YOUR_HOST:3100/health`
+## SEO
 
-## Site map & SEO
-
-- **`GET /sitemap.xml`** — dynamic sitemap (set `SITE_URL` for correct absolute URLs).
-- Meta descriptions and canonical URLs are set per page; GA loads when `GA_MEASUREMENT_ID` is set.
+- **`GET /sitemap.xml`** — includes Home, Pricing, Contact
+- Per-page `<title>`, meta description, canonical, and Open Graph tags (set `SITE_URL` for correct absolute URLs)
 
 ## Pages
 
-- Home, About, Insights (blog with search), Testimonials, Contact, Privacy
-- Login, Register, Account (session-based auth)
+- **Home** — `/`
+- **Pricing** — `/pricing`
+- **Contact** — `/contact` (stores leads in `leads`, optional webhook)
 
 ---
 
