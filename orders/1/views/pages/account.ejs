@@ -1,0 +1,26 @@
+<section class="page-hero">
+  <div class="container narrow">
+    <p class="eyebrow">Signed in</p>
+    <h1 class="display display--sm">Your account</h1>
+    <p class="lead">You are signed in as <strong><%= currentUser.email %></strong>.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow">
+    <div class="card card--pad">
+      <p>
+        This area is reserved for future preferences and saved searches. For now, use <a href="/contact">Contact</a> or
+        <% if (whatsappNumber) { %>
+          <a href="https://wa.me/<%= whatsappNumber %>" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <% } else { %>
+          phone or email from your agreement with 12
+        <% } %>
+        to continue your project.
+      </p>
+      <form action="/logout" method="post" class="mt-lg">
+        <button type="submit" class="btn btn--ghost">Sign out</button>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+<section class="page-hero">
+  <div class="container narrow">
+    <p class="eyebrow">Account</p>
+    <h1 class="display display--sm">Create account</h1>
+    <p class="lead">Register to stay connected with 12.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container narrow">
+    <% if (error) { %>
+      <div class="notice notice--error" role="alert"><%= error %></div>
+    <% } %>
+    <form class="stack-form card card--pad" method="post" action="/register">
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required autocomplete="email" />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required minlength="8" autocomplete="new-password" />
+        <span class="hint">At least 8 characters.</span>
+      </div>
+      <div class="field">
+        <label for="confirm">Confirm password</label>
+        <input id="confirm" name="confirm" type="password" required minlength="8" autocomplete="new-password" />
+      </div>
+      <button type="submit" class="btn">Create account</button>
+    </form>
+    <p class="muted">Already have an account? <a href="/login">Sign in</a></p>
+  </div>
+</section>
