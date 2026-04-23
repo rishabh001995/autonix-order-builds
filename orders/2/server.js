@@ -19,24 +19,48 @@ if (FORBIDDEN_PORTS.has(PORT)) {
 
 const app = express();
 
+/**
+ * Dev preview is http://host:PORT — never send upgrade-insecure-requests or HSTS (browser would
+ * fetch CSS as https:// and styles break). Enable strict headers only when SITE_URL is https.
+ */
+const siteUsesHttps = (process.env.SITE_URL || '').trim().toLowerCase().startsWith('https:');
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(expressLayouts);
 app.set('layout', 'layout');
 
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-        'script-src': ["'self'", 'https://www.googletagmanager.com', "'unsafe-inline'"],
-        'connect-src': ["'self'", 'https://www.google-analytics.com'],
-        'font-src': ["'self'", 'https://fonts.gstatic.com'],
-        'style-src': ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
+const helmetBase = {
+  strictTransportSecurity: siteUsesHttps,
+  contentSecurityPolicy: siteUsesHttps
+    ? {
+        directives: {
+          ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+          'script-src': ["'self'", 'https://www.googletagmanager.com', "'unsafe-inline'"],
+          'connect-src': ["'self'", 'https://www.google-analytics.com'],
+          'font-src': ["'self'", 'https://fonts.gstatic.com'],
+          'style-src': ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
+        },
+      }
+    : {
+        useDefaults: false,
+        directives: {
+          defaultSrc: ["'self'"],
+          baseUri: ["'self'"],
+          fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+          formAction: ["'self'"],
+          frameAncestors: ["'self'"],
+          imgSrc: ["'self'", 'data:'],
+          objectSrc: ["'none'"],
+          scriptSrc: ["'self'", 'https://www.googletagmanager.com', "'unsafe-inline'"],
+          scriptSrcAttr: ["'none'"],
+          styleSrc: ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
+          connectSrc: ["'self'", 'https://www.google-analytics.com'],
+        },
       },
-    },
-  })
-);
+};
+
+app.use(helmet(helmetBase));
 app.use(compression());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
