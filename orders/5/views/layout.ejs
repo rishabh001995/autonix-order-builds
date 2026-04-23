@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= typeof pageTitle !== 'undefined' ? pageTitle : 'Hippo' %></title>
+  <meta name="description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : '' %>" />
+  <link rel="canonical" href="<%= siteUrl %><%= typeof canonicalPath !== 'undefined' ? canonicalPath : '' %>" />
+  <meta property="og:title" content="<%= typeof pageTitle !== 'undefined' ? pageTitle : 'Hippo' %>" />
+  <meta property="og:description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : '' %>" />
+  <meta property="og:url" content="<%= siteUrl %><%= typeof canonicalPath !== 'undefined' ? canonicalPath : '' %>" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <% if (gaId) { %>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=<%= gaId %>"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '<%= gaId %>');
+  </script>
+  <% } %>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/">
+        <img src="<%= clientLogoUrl %>" alt="Hippo logo" width="44" height="44" loading="eager" />
+        <span>Hippo</span>
+      </a>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>Menu</button>
+      <nav id="site-nav" class="site-nav" data-nav>
+        <a href="/">Home</a>
+        <a href="/menu">Menu</a>
+        <a href="/shop">Shop</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <% if (typeof cartCount !== 'undefined' && cartCount > 0) { %>
+        <a href="/cart" class="cart-pill" aria-label="Shopping cart">Cart <strong><%= cartCount %></strong></a>
+        <% } else { %>
+        <a href="/cart">Cart</a>
+        <% } %>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <%- body %>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="logo footer-logo">Hippo</div>
+        <p class="muted">A food restaurant with an e-commerce style menu — order bowls, burgers, sides, and drinks for pickup or delivery where we serve.</p>
+      </div>
+      <div>
+        <h2 class="footer-heading">Explore</h2>
+        <ul class="footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/menu">Menu</a></li>
+          <li><a href="/shop">Shop</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="footer-heading">Orders</h2>
+        <ul class="footer-links">
+          <li><a href="/shop">Browse the shop</a></li>
+          <li><a href="/cart">View cart</a></li>
+          <% if (whatsappNumber) { %>
+          <li><a href="https://wa.me/<%= whatsappNumber %>" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>&copy; <%= new Date().getFullYear() %> Hippo · Custom Website Creation — John&apos;s Workspace</span>
+    </div>
+  </footer>
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

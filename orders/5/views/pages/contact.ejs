@@ -1,0 +1,51 @@
+<div class="container page-hero">
+  <h1>Contact Hippo</h1>
+  <p>Reservations, catering, or questions about your online order — send a note and we will reply with clear next steps.</p>
+</div>
+
+<section class="section section-tight">
+  <div class="container split">
+    <div>
+      <% if (typeof sent !== 'undefined' && sent) { %>
+      <div class="alert alert-success" role="status">Thank you — we received your message and will follow up soon.</div>
+      <% } %>
+      <% if (typeof error !== 'undefined' && error) { %>
+      <div class="alert alert-error" role="alert">Please complete name, email, and message.</div>
+      <% } %>
+      <form method="post" action="/contact" class="forms" style="max-width:none;">
+        <div class="form-row">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required autocomplete="email" />
+        </div>
+        <div class="form-row">
+          <label for="company">Business <span class="form-hint" style="display:inline;font-weight:400;">(optional)</span></label>
+          <input id="company" name="company" type="text" autocomplete="organization" />
+        </div>
+        <div class="form-row">
+          <label for="message">How can we help?</label>
+          <textarea id="message" name="message" rows="5" required placeholder="Party size, dietary needs, order question…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send message</button>
+      </form>
+      <p class="form-hint" style="margin-top:1rem;">
+        Optional: set <code>CONTACT_WEBHOOK_URL</code> to POST JSON to your automation. Submissions are stored in schema <code>autonix_order_5</code>.
+      </p>
+    </div>
+    <div class="card" style="padding:1.5rem;">
+      <h2 style="font-family:var(--font-display);margin:0 0 1rem;color:var(--forest-900);">Client</h2>
+      <p class="form-hint" style="margin-bottom:0.75rem;"><strong>John Doe</strong> · <a href="mailto:user@example.com">user@example.com</a></p>
+      <p class="form-hint" style="margin-bottom:0.75rem;">Workspace: <strong>John&apos;s Workspace</strong></p>
+      <p class="form-hint" style="margin-bottom:1.25rem;">Order: Custom Website Creation · Medium · <strong>$499</strong></p>
+      <h2 style="font-family:var(--font-display);margin:0 0 0.75rem;color:var(--forest-900);">WhatsApp</h2>
+      <% if (whatsappNumber) { %>
+      <p><a class="btn btn-secondary" href="https://wa.me/<%= whatsappNumber %>" target="_blank" rel="noopener noreferrer">Message on WhatsApp</a></p>
+      <% } else { %>
+      <p class="form-hint">Set <code>WHATSAPP_NUMBER</code> in your environment (digits only, international format).</p>
+      <% } %>
+    </div>
+  </div>
+</section>
