@@ -1,0 +1,73 @@
+<div class="container page-narrow">
+  <h1 class="page-title">Checkout</h1>
+  <% if (error) { %>
+  <p class="banner banner-error" role="alert">Please complete all required fields, including email, name, address, city, and postal code.</p>
+  <% } %>
+  <div class="checkout-grid">
+    <form class="form-stack" method="post" action="/checkout">
+      <h2 class="h3">Delivery details</h2>
+      <label class="field">
+        <span>Full name</span>
+        <input type="text" name="full_name" required autocomplete="name" />
+      </label>
+      <label class="field">
+        <span>Email</span>
+        <input type="email" name="email" required autocomplete="email" />
+      </label>
+      <label class="field">
+        <span>Phone (optional)</span>
+        <input type="tel" name="phone" autocomplete="tel" />
+      </label>
+      <label class="field">
+        <span>Street address</span>
+        <input type="text" name="address_line1" required autocomplete="address-line1" />
+      </label>
+      <label class="field">
+        <span>Apt, floor, gate code (optional)</span>
+        <input type="text" name="address_line2" autocomplete="address-line2" />
+      </label>
+      <div class="field-row">
+        <label class="field">
+          <span>City</span>
+          <input type="text" name="city" required autocomplete="address-level2" />
+        </label>
+        <label class="field">
+          <span>State / region (optional)</span>
+          <input type="text" name="region" autocomplete="address-level1" />
+        </label>
+        <label class="field">
+          <span>Postal code</span>
+          <input type="text" name="postal" required autocomplete="postal-code" />
+        </label>
+      </div>
+      <label class="field">
+        <span>Preferred delivery window</span>
+        <select name="delivery_window">
+          <option value="">Select a window</option>
+          <option value="Today 4pm–7pm">Today 4pm–7pm</option>
+          <option value="Tomorrow 9am–12pm">Tomorrow 9am–12pm</option>
+          <option value="Tomorrow 12pm–4pm">Tomorrow 12pm–4pm</option>
+          <option value="Tomorrow 4pm–7pm">Tomorrow 4pm–7pm</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Order notes (optional)</span>
+        <textarea name="notes" rows="3" placeholder="Allergies, substitutions, or drop-off preferences"></textarea>
+      </label>
+      <button type="submit" class="btn btn-primary">Place order</button>
+    </form>
+    <aside class="checkout-aside">
+      <h2 class="h3">Order summary</h2>
+      <ul class="summary-list">
+        <% lines.forEach(function (line) { %>
+        <li>
+          <span><%= line.product.name %> × <%= line.quantity %></span>
+          <span>$<%= formatMoney(line.lineTotalCents) %></span>
+        </li>
+        <% }); %>
+      </ul>
+      <p class="summary-total"><strong>Subtotal</strong> <span>$<%= formatMoney(subtotalCents) %></span></p>
+      <p class="muted small">You will receive a confirmation email with fulfillment details.</p>
+    </aside>
+  </div>
+</div>
