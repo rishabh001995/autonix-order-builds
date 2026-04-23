@@ -1,0 +1,40 @@
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Shop</p>
+    <h1 class="display display--sm">Beans, espresso, and camp-ready gear</h1>
+    <p class="lead narrow">
+      Every item ships from our roastery lineup. Add to cart, check out with your shipping details, and we will confirm by email.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <% if (!products || !products.length) { %>
+      <p class="muted">Products are loading soon — check back or <a href="/contact">contact us</a> for availability.</p>
+    <% } else { %>
+    <div class="product-grid">
+      <% products.forEach(function (p) { %>
+      <article class="card product-card">
+        <span class="badge"><%= p.category === 'gear' ? 'Gear' : 'Coffee' %></span>
+        <div class="product-body">
+          <h2 class="h3" style="margin-top:0.75rem"><a href="/shop/<%= p.slug %>"><%= p.name %></a></h2>
+          <p class="muted"><%= p.description.length > 140 ? p.description.slice(0, 137) + '…' : p.description %></p>
+          <p class="price">$<%= formatMoney(p.priceCents) %></p>
+        </div>
+        <div class="product-actions">
+          <form method="post" action="/cart/add" style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center">
+            <input type="hidden" name="product_id" value="<%= p.id %>" />
+            <input type="hidden" name="redirect" value="/shop" />
+            <label class="small muted" for="qty-<%= p.id %>">Qty</label>
+            <input class="qty-input" id="qty-<%= p.id %>" name="quantity" type="number" min="1" max="99" value="1" />
+            <button type="submit" class="btn btn--small">Add to cart</button>
+          </form>
+          <a class="btn btn--ghost btn--small" href="/shop/<%= p.slug %>">Details</a>
+        </div>
+      </article>
+      <% }); %>
+    </div>
+    <% } %>
+  </div>
+</section>
