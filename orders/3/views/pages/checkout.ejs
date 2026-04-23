@@ -59,7 +59,12 @@
       <h2 class="h3">Order summary</h2>
       <ul class="footer-links" style="margin-top:1rem">
         <% lines.forEach(function (line) { %>
-        <li><%= line.quantity %> × <%= line.product.name %> — $<%= formatMoney(line.lineTotalCents) %></li>
+        <li class="checkout-line">
+          <span class="checkout-line-inner">
+            <img class="cart-thumb" src="<%= productImageUrl(line.product) %>" alt="" width="52" height="52" loading="lazy" decoding="async" />
+            <span><%= line.quantity %> × <%= line.product.name %> — $<%= formatMoney(line.lineTotalCents) %></span>
+          </span>
+        </li>
         <% }); %>
       </ul>
       <p class="price mt-lg">Total: $<%= formatMoney(subtotalCents) %></p>

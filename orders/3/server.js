@@ -36,6 +36,7 @@ const helmetBase = {
           'script-src': ["'self'", 'https://www.googletagmanager.com', "'unsafe-inline'"],
           'connect-src': ["'self'", 'https://www.google-analytics.com'],
           'font-src': ["'self'", 'https://fonts.gstatic.com'],
+          'img-src': ["'self'", 'data:', 'https://images.unsplash.com'],
           'style-src': ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
         },
       }
@@ -47,7 +48,7 @@ const helmetBase = {
           fontSrc: ["'self'", 'https://fonts.gstatic.com'],
           formAction: ["'self'"],
           frameAncestors: ["'self'"],
-          imgSrc: ["'self'", 'data:'],
+          imgSrc: ["'self'", 'data:', 'https://images.unsplash.com'],
           objectSrc: ["'none'"],
           scriptSrc: ["'self'", 'https://www.googletagmanager.com', "'unsafe-inline'"],
           scriptSrcAttr: ["'none'"],
@@ -77,6 +78,14 @@ app.use(
 
 function formatMoney(cents) {
   return (Number(cents) / 100).toFixed(2);
+}
+
+function productImageUrl(product) {
+  if (!product) return '';
+  if (product.imageUrl) return product.imageUrl;
+  return product.category === 'gear'
+    ? 'https://images.unsplash.com/photo-1514228742587-6b1558fcf93b?w=900&q=85&auto=format&fit=crop'
+    : 'https://images.unsplash.com/photo-1559056199-641bd0d8a3e92?w=900&q=85&auto=format&fit=crop';
 }
 
 function normalizeCart(raw) {
@@ -129,6 +138,7 @@ app.use(async (req, res, next) => {
   res.locals.pageTitle = 'BC Coffee';
   res.locals.metaDescription = defaultMeta;
   res.locals.formatMoney = formatMoney;
+  res.locals.productImageUrl = productImageUrl;
   try {
     const cartSum = await getCartSummary(req);
     res.locals.cartCount = cartSum.count;

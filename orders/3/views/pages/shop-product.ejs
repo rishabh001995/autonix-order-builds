@@ -1,6 +1,18 @@
 <section class="page-hero">
-  <div class="container split">
-    <div>
+  <div class="container product-detail-layout">
+    <div class="product-detail-media-wrap">
+      <figure class="product-detail-media" aria-label="<%= product.name %>">
+        <img
+          src="<%= productImageUrl(product) %>"
+          alt="<%= product.name %>"
+          width="900"
+          height="900"
+          loading="eager"
+          decoding="async"
+        />
+      </figure>
+    </div>
+    <div class="product-detail-copy">
       <p class="eyebrow"><%= product.category === 'gear' ? 'Gear' : 'Coffee' %></p>
       <h1 class="display display--sm"><%= product.name %></h1>
       <p class="price">$<%= formatMoney(product.priceCents) %></p>
@@ -16,7 +28,7 @@
       </form>
       <p class="muted small mt-lg"><a href="/shop">&larr; Back to shop</a></p>
     </div>
-    <div class="card">
+    <div class="card product-detail-extra">
       <h2 class="h3">Brew notes</h2>
       <% if (product.category === 'gear') { %>
       <p class="muted">Ships in protective packaging. Hand-wash recommended to preserve the enamel finish over years of camp mornings.</p>

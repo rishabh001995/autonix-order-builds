@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `category` VARCHAR(80) DEFAULT 'beans',
   `is_active` TINYINT(1) NOT NULL DEFAULT 1,
   `sort_order` INT NOT NULL DEFAULT 0,
+  `image_url` VARCHAR(512) DEFAULT NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME NOT NULL,
   PRIMARY KEY (`id`),

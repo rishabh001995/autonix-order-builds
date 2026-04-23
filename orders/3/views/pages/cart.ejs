@@ -30,7 +30,12 @@
           <tbody>
             <% lines.forEach(function (line) { %>
             <tr>
-              <td><a href="/shop/<%= line.product.slug %>"><%= line.product.name %></a></td>
+              <td>
+                <a class="cart-item-name" href="/shop/<%= line.product.slug %>">
+                  <img class="cart-thumb" src="<%= productImageUrl(line.product) %>" alt="" width="52" height="52" loading="lazy" decoding="async" />
+                  <span><%= line.product.name %></span>
+                </a>
+              </td>
               <td>$<%= formatMoney(line.product.priceCents) %></td>
               <td style="max-width:6rem">
                 <input class="qty-input" type="number" name="qty_<%= line.product.id %>" min="0" max="99" value="<%= line.quantity %>" />

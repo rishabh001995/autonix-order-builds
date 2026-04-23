@@ -27,6 +27,7 @@ const Product = sequelize.define(
     category: { type: DataTypes.STRING(80), allowNull: true, defaultValue: 'beans' },
     isActive: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true, field: 'is_active' },
     sortOrder: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0, field: 'sort_order' },
+    imageUrl: { type: DataTypes.STRING(512), allowNull: true, field: 'image_url' },
   },
   {
     tableName: 'products',

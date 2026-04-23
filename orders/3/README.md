@@ -26,7 +26,13 @@ mysql -h 127.0.0.1 -u root -p < sql/001_init.sql
 mysql -h 127.0.0.1 -u root -p < sql/002_seed_products.sql
 ```
 
-Alternatively, set `SYNC_DB=true` **once** in `.env` if you prefer Sequelize to create tables from models (you should still run `001_init.sql` for the canonical schema, or rely on sync only in empty dev databases).
+If you already had the database from an older checkout without `products.image_url`, apply the idempotent migration:
+
+```bash
+mysql -h 127.0.0.1 -u root -p < sql/003_add_product_image_url.sql
+```
+
+Product and page imagery uses **Unsplash** URLs (allowed in Content-Security-Policy). Alternatively, set `SYNC_DB=true` **once** in `.env` if you prefer Sequelize to create tables from models (you should still run `001_init.sql` for the canonical schema, or rely on sync only in empty dev databases).
 
 ## Environment variables
 
