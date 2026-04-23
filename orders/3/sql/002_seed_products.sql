@@ -1,6 +1,6 @@
 USE `autonix_order_3`;
 
-INSERT INTO `products` (`slug`, `name`, `description`, `price_cents`, `category`, `is_active`, `sort_order`, `created_at`, `updated_at`)
+INSERT INTO `products` (`slug`, `name`, `description`, `price_cents`, `category`, `is_active`, `sort_order`, `image_url`, `created_at`, `updated_at`)
 VALUES
   (
     'trailhead-blend',
@@ -10,6 +10,7 @@ VALUES
     'beans',
     1,
     10,
+    'https://images.unsplash.com/photo-1559056199-641bd0d8a3e92?w=900&q=85&auto=format&fit=crop',
     NOW(),
     NOW()
   ),
@@ -21,6 +22,7 @@ VALUES
     'beans',
     1,
     20,
+    'https://images.unsplash.com/photo-1497936358523-2966f92d8ee2?w=900&q=85&auto=format&fit=crop',
     NOW(),
     NOW()
   ),
@@ -32,6 +34,7 @@ VALUES
     'beans',
     1,
     30,
+    'https://images.unsplash.com/photo-1510591508518-65db6f17e6f8?w=900&q=85&auto=format&fit=crop',
     NOW(),
     NOW()
   ),
@@ -43,6 +46,7 @@ VALUES
     'gear',
     1,
     40,
+    'https://images.unsplash.com/photo-1514228742587-6b1558fcf93b?w=900&q=85&auto=format&fit=crop',
     NOW(),
     NOW()
   )
@@ -53,4 +57,5 @@ ON DUPLICATE KEY UPDATE
   `category` = VALUES(`category`),
   `is_active` = VALUES(`is_active`),
   `sort_order` = VALUES(`sort_order`),
+  `image_url` = VALUES(`image_url`),
   `updated_at` = NOW();

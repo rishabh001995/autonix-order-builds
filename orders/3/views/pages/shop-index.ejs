@@ -16,7 +16,17 @@
     <div class="product-grid">
       <% products.forEach(function (p) { %>
       <article class="card product-card">
-        <span class="badge"><%= p.category === 'gear' ? 'Gear' : 'Coffee' %></span>
+        <div class="product-thumb">
+          <img
+            src="<%= productImageUrl(p) %>"
+            alt=""
+            width="600"
+            height="450"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <span class="badge" style="margin-top:0.85rem"><%= p.category === 'gear' ? 'Gear' : 'Coffee' %></span>
         <div class="product-body">
           <h2 class="h3" style="margin-top:0.75rem"><a href="/shop/<%= p.slug %>"><%= p.name %></a></h2>
           <p class="muted"><%= p.description.length > 140 ? p.description.slice(0, 137) + '…' : p.description %></p>
