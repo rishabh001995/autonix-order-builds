@@ -1,0 +1,30 @@
+<section class="page-hero">
+  <div class="container split">
+    <div>
+      <p class="eyebrow"><%= product.category === 'gear' ? 'Gear' : 'Coffee' %></p>
+      <h1 class="display display--sm"><%= product.name %></h1>
+      <p class="price">$<%= formatMoney(product.priceCents) %></p>
+      <p class="lead"><%= product.description %></p>
+      <form method="post" action="/cart/add" class="stack-form" style="max-width:320px">
+        <input type="hidden" name="product_id" value="<%= product.id %>" />
+        <input type="hidden" name="redirect" value="/shop/<%= product.slug %>" />
+        <div class="field">
+          <label for="quantity">Quantity</label>
+          <input id="quantity" name="quantity" type="number" min="1" max="99" value="1" />
+        </div>
+        <button type="submit" class="btn">Add to cart</button>
+      </form>
+      <p class="muted small mt-lg"><a href="/shop">&larr; Back to shop</a></p>
+    </div>
+    <div class="card">
+      <h2 class="h3">Brew notes</h2>
+      <% if (product.category === 'gear') { %>
+      <p class="muted">Ships in protective packaging. Hand-wash recommended to preserve the enamel finish over years of camp mornings.</p>
+      <% } else { %>
+      <p class="muted">Store sealed in a cool, dark place. For peak flavor, grind just before brewing and use within three weeks of the roast date printed on your bag.</p>
+      <% } %>
+      <h2 class="h3 mt-lg">Questions?</h2>
+      <p class="muted"><a href="/contact">Contact us</a> for grind recommendations or wholesale pricing on this SKU.</p>
+    </div>
+  </div>
+</section>

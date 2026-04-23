@@ -1,0 +1,69 @@
+<section class="page-hero">
+  <div class="container narrow">
+    <p class="eyebrow">Checkout</p>
+    <h1 class="display display--sm">Shipping details</h1>
+    <p class="lead">Review your items and tell us where to send them. This demo records your order in our database — no live payment card processing on this site.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div>
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="notice notice--error" role="alert">Please complete email, full name, street address, city, and postal code.</div>
+      <% } %>
+      <form class="stack-form" method="post" action="/checkout">
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="full_name">Full name</label>
+          <input id="full_name" name="full_name" type="text" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="phone">Phone <span class="optional">(optional)</span></label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" />
+        </div>
+        <div class="field">
+          <label for="address_line1">Street address</label>
+          <input id="address_line1" name="address_line1" type="text" required autocomplete="address-line1" />
+        </div>
+        <div class="field">
+          <label for="address_line2">Apt, suite <span class="optional">(optional)</span></label>
+          <input id="address_line2" name="address_line2" type="text" autocomplete="address-line2" />
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="city">City</label>
+            <input id="city" name="city" type="text" required autocomplete="address-level2" />
+          </div>
+          <div class="field">
+            <label for="region">State / region <span class="optional">(optional)</span></label>
+            <input id="region" name="region" type="text" autocomplete="address-level1" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="postal">Postal code</label>
+          <input id="postal" name="postal" type="text" required autocomplete="postal-code" />
+        </div>
+        <div class="field">
+          <label for="notes">Order notes <span class="optional">(optional)</span></label>
+          <textarea id="notes" name="notes" rows="3" placeholder="Grind preference, delivery instructions, gift message…"></textarea>
+        </div>
+        <button type="submit" class="btn">Place order</button>
+      </form>
+      <p class="muted small mt-lg"><a href="/cart">&larr; Back to cart</a></p>
+    </div>
+    <div class="card">
+      <h2 class="h3">Order summary</h2>
+      <ul class="footer-links" style="margin-top:1rem">
+        <% lines.forEach(function (line) { %>
+        <li><%= line.quantity %> × <%= line.product.name %> — $<%= formatMoney(line.lineTotalCents) %></li>
+        <% }); %>
+      </ul>
+      <p class="price mt-lg">Total: $<%= formatMoney(subtotalCents) %></p>
+      <p class="muted small">Tax and shipping may be confirmed by email depending on your region.</p>
+    </div>
+  </div>
+</section>

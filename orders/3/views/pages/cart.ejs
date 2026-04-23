@@ -1,0 +1,57 @@
+<section class="page-hero">
+  <div class="container flex-between">
+    <div>
+      <p class="eyebrow">Cart</p>
+      <h1 class="display display--sm">Your selection</h1>
+    </div>
+    <% if (lines && lines.length) { %>
+    <p class="price">Subtotal: $<%= formatMoney(subtotalCents) %></p>
+    <% } %>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <% if (!lines || !lines.length) { %>
+      <p class="muted">Your cart is empty. <a href="/shop">Browse the shop</a>.</p>
+    <% } else { %>
+    <form method="post" action="/cart/update">
+      <div class="table-wrap">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Line</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% lines.forEach(function (line) { %>
+            <tr>
+              <td><a href="/shop/<%= line.product.slug %>"><%= line.product.name %></a></td>
+              <td>$<%= formatMoney(line.product.priceCents) %></td>
+              <td style="max-width:6rem">
+                <input class="qty-input" type="number" name="qty_<%= line.product.id %>" min="0" max="99" value="<%= line.quantity %>" />
+              </td>
+              <td>$<%= formatMoney(line.lineTotalCents) %></td>
+              <td>
+                <button type="submit" class="btn btn--danger btn--small" formaction="/cart/remove" formmethod="post" name="product_id" value="<%= line.product.id %>">Remove</button>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+      <div class="flex-between mt-lg">
+        <button type="submit" class="btn btn--ghost">Update cart</button>
+        <div>
+          <p class="price" style="margin:0 0 0.5rem;text-align:right">Subtotal: $<%= formatMoney(subtotalCents) %></p>
+          <a class="btn" href="/checkout">Checkout</a>
+        </div>
+      </div>
+    </form>
+    <% } %>
+  </div>
+</section>

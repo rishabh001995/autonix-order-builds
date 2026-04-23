@@ -1,0 +1,54 @@
+<section class="page-hero">
+  <div class="container narrow">
+    <p class="eyebrow">Contact</p>
+    <h1 class="display display--sm">Talk with BC Coffee</h1>
+    <p class="lead">Questions about an order, wholesale, or a roast profile? Send a note — we reply to real inquiries with clear next steps.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container split">
+    <div>
+      <% if (typeof sent !== 'undefined' && sent) { %>
+        <div class="notice notice--success" role="status">Thank you — we received your message and will follow up soon.</div>
+      <% } %>
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="notice notice--error" role="alert">Please complete name, email, and message. If this persists, email us directly.</div>
+      <% } %>
+      <form class="stack-form" method="post" action="/contact" novalidate>
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="company">Business <span class="optional">(optional)</span></label>
+          <input id="company" name="company" type="text" autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label for="message">How can we help?</label>
+          <textarea id="message" name="message" rows="5" required placeholder="Order number, wholesale volume, brew setup…"></textarea>
+        </div>
+        <button type="submit" class="btn">Send message</button>
+      </form>
+      <p class="muted small">
+        Optional: set <code>CONTACT_WEBHOOK_URL</code> to POST JSON to Zapier or Make. Submissions are stored in <code>autonix_order_3</code>.
+      </p>
+    </div>
+    <div class="card">
+      <h2 class="h3">Client</h2>
+      <p class="muted"><strong>John Doe</strong> · <a href="mailto:user@example.com">user@example.com</a></p>
+      <p class="muted">Workspace: <strong>John&apos;s Workspace</strong></p>
+      <p class="muted">Order: Custom Website Creation · Medium · <strong>$392</strong></p>
+      <h2 class="h3 mt-lg">WhatsApp</h2>
+      <% if (whatsappNumber) { %>
+        <p><a class="btn btn--ghost" href="https://wa.me/<%= whatsappNumber %>" target="_blank" rel="noopener noreferrer">Message on WhatsApp</a></p>
+      <% } else { %>
+        <p class="muted">Set <code>WHATSAPP_NUMBER</code> in your environment (digits only, international format).</p>
+      <% } %>
+    </div>
+  </div>
+</section>
