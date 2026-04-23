@@ -1,0 +1,25 @@
+<section class="section section-tight">
+  <div class="container product-detail">
+    <div class="product-detail-media">
+      <img src="<%= productImageUrl(product) %>" alt="<%= product.name %>" width="900" height="675" />
+    </div>
+    <div>
+      <p class="pill" style="margin-bottom:0.75rem;">
+        <% if (product.category === 'mains') { %>Mains<% } else if (product.category === 'sides') { %>Sides & salads<% } else if (product.category === 'dessert') { %>Dessert<% } else if (product.category === 'drinks') { %>Drinks<% } else { %><%= product.category %><% } %>
+      </p>
+      <h1 style="font-family:var(--font-display);color:var(--forest-900);margin:0 0 0.75rem;"><%= product.name %></h1>
+      <p style="color:var(--text-muted);font-size:1.05rem;"><%= product.description %></p>
+      <p class="price" style="font-size:1.5rem;margin:1.25rem 0;">$<%= formatMoney(product.priceCents) %></p>
+      <form method="post" action="/cart/add" class="forms" style="max-width:none;">
+        <input type="hidden" name="product_id" value="<%= product.id %>" />
+        <div class="form-row">
+          <label for="quantity">Quantity</label>
+          <input id="quantity" name="quantity" type="number" min="1" max="99" value="1" style="max-width:6rem;" />
+        </div>
+        <input type="hidden" name="redirect" value="/shop/<%= product.slug %>" />
+        <button type="submit" class="btn btn-primary">Add to cart</button>
+        <a href="/shop" class="btn btn-secondary" style="margin-left:0.5rem;text-decoration:none;">Back to shop</a>
+      </form>
+    </div>
+  </div>
+</section>

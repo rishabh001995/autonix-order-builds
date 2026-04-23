@@ -1,0 +1,54 @@
+<div class="container page-hero">
+  <h1>Your cart</h1>
+  <p>Update quantities or remove items, then continue to checkout.</p>
+</div>
+
+<section class="section section-tight">
+  <div class="container">
+    <% if (!lines.length) { %>
+    <div class="empty-state">
+      <p>Your cart is empty.</p>
+      <a class="btn btn-primary" href="/shop" style="margin-top:1rem;display:inline-flex;">Browse the shop</a>
+    </div>
+    <% } else { %>
+    <form method="post" action="/cart/update">
+      <div class="table-wrap">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Line</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% lines.forEach((line) => { %>
+            <tr>
+              <td>
+                <strong><%= line.product.name %></strong>
+                <div><a href="/shop/<%= line.product.slug %>">View</a></div>
+              </td>
+              <td>$<%= formatMoney(line.product.priceCents) %></td>
+              <td>
+                <input type="number" name="qty_<%= line.product.id %>" min="0" max="99" value="<%= line.quantity %>" />
+              </td>
+              <td>$<%= formatMoney(line.lineTotalCents) %></td>
+              <td>
+                <button type="submit" class="btn btn-secondary" style="padding:0.4rem 0.75rem;font-size:0.8rem;background:var(--danger);border:none;color:#fff;" formaction="/cart/remove" formmethod="post" name="product_id" value="<%= line.product.id %>">Remove</button>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+      <div class="stack-actions">
+        <button type="submit" class="btn btn-secondary">Update cart</button>
+        <a class="btn btn-primary" href="/checkout">Checkout</a>
+      </div>
+    </form>
+    <p style="margin-top:1.5rem;font-weight:600;">Subtotal: $<%= formatMoney(subtotalCents) %></p>
+    <% } %>
+  </div>
+</section>
