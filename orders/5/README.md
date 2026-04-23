@@ -41,6 +41,7 @@ cp .env.example .env
 | `GA_MEASUREMENT_ID` | Optional Google Analytics 4 ID |
 | `WHATSAPP_NUMBER` | Optional digits-only international number for footer link |
 | `CONTACT_WEBHOOK_URL` | Optional POST JSON on contact form submit |
+| `CONTACT_EMAIL` | Optional public inbox shown on the contact page (mailto link) |
 | `ORDER_WEBHOOK_URL` | Optional POST JSON on successful checkout |
 | `PM2_APP_NAME` | `autonix-order-5-dev` (dev) or `autonix-order-5-main` (production) — see PM2 below |
 
@@ -115,3 +116,11 @@ Example dev deploy base: `http://183.82.156.69:3108` (set `PORT` and `SITE_URL` 
 ## Security
 
 Do not commit real secrets. Use `.env` locally and keep `.env.example` updated for required variables only.
+
+## Project owner (internal)
+
+Order metadata (client name, workspace, package tier) is for Autonix delivery records — it is documented here rather than on the public contact page.
+
+- **Client:** John Doe \<user@example.com\>
+- **Workspace:** John's Workspace
+- **Service:** Custom Website Creation · Medium · **$499**

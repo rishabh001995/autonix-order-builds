@@ -36,10 +36,11 @@
       </p>
     </div>
     <div class="card" style="padding:1.5rem;">
-      <h2 style="font-family:var(--font-display);margin:0 0 1rem;color:var(--forest-900);">Client</h2>
-      <p class="form-hint" style="margin-bottom:0.75rem;"><strong>John Doe</strong> · <a href="mailto:user@example.com">user@example.com</a></p>
-      <p class="form-hint" style="margin-bottom:0.75rem;">Workspace: <strong>John&apos;s Workspace</strong></p>
-      <p class="form-hint" style="margin-bottom:1.25rem;">Order: Custom Website Creation · Medium · <strong>$499</strong></p>
+      <h2 style="font-family:var(--font-display);margin:0 0 1rem;color:var(--forest-900);">Other ways to reach us</h2>
+      <p class="form-hint" style="margin-bottom:1rem;">For reservations, catering, or order updates, use the form — we usually reply within one business day.</p>
+      <% if (typeof contactEmail !== 'undefined' && contactEmail) { %>
+      <p style="margin:0 0 1.25rem;"><a class="btn btn-secondary" href="mailto:<%= contactEmail %>">Email <%= contactEmail %></a></p>
+      <% } %>
       <h2 style="font-family:var(--font-display);margin:0 0 0.75rem;color:var(--forest-900);">WhatsApp</h2>
       <% if (whatsappNumber) { %>
       <p><a class="btn btn-secondary" href="https://wa.me/<%= whatsappNumber %>" target="_blank" rel="noopener noreferrer">Message on WhatsApp</a></p>
