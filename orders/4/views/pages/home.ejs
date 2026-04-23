@@ -1,0 +1,127 @@
+<section class="hero">
+  <div class="container hero-inner">
+    <p class="eyebrow">Grocery delivery</p>
+    <h1 class="hero-title">Deliveru brings the market to your door.</h1>
+    <p class="hero-lead">Shop curated produce, dairy, bakery, and pantry staples in one calm flow — then pick a delivery window that fits your week. Built for people who want fewer errands and better weeknight meals.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#shop">Browse groceries</a>
+      <a class="btn btn-ghost" href="#how">See how it works</a>
+    </div>
+  </div>
+</section>
+
+<section id="how" class="section">
+  <div class="container narrow">
+    <h2 class="section-title">How Deliveru works</h2>
+    <ol class="steps">
+      <li>
+        <span class="step-num">1</span>
+        <div>
+          <h3>Add to cart</h3>
+          <p class="muted">Choose staples and seasonal picks — quantities update instantly as you shop.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <div>
+          <h3>Share your address</h3>
+          <p class="muted">Tell us where to leave your bags and any building or gate notes we should know.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <div>
+          <h3>Pick a window</h3>
+          <p class="muted">Select morning, afternoon, or evening delivery. We confirm details by email.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="shop" class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title">This week&apos;s selection</h2>
+      <p class="muted section-sub">Rotating groceries priced in plain dollars — Medium package storefront for <strong>grocery delivery</strong> by Deliveru.</p>
+    </div>
+    <% 
+      const byCat = {};
+      (products || []).forEach(function (p) {
+        const c = p.category || 'other';
+        if (!byCat[c]) byCat[c] = [];
+        byCat[c].push(p);
+      });
+      const catOrder = ['produce', 'dairy', 'bakery', 'pantry'];
+      const orderedCats = catOrder.filter(function (c) { return byCat[c] && byCat[c].length; });
+      Object.keys(byCat).forEach(function (c) {
+        if (orderedCats.indexOf(c) === -1) orderedCats.push(c);
+      });
+    %>
+    <% orderedCats.forEach(function (cat) { %>
+    <div class="product-block">
+      <h3 class="product-cat-title"><%= categoryLabel(cat) %></h3>
+      <div class="product-grid">
+        <% byCat[cat].forEach(function (product) { %>
+        <article class="product-card">
+          <a class="product-media" href="/p/<%= product.slug %>">
+            <img src="<%= productImageUrl(product) %>" alt="" width="640" height="480" loading="lazy" decoding="async" />
+          </a>
+          <div class="product-body">
+            <h4 class="product-name"><a href="/p/<%= product.slug %>"><%= product.name %></a></h4>
+            <p class="product-desc muted"><%= product.description %></p>
+            <div class="product-row">
+              <span class="price">$<%= formatMoney(product.priceCents) %></span>
+              <form class="inline-add" method="post" action="/cart/add">
+                <input type="hidden" name="product_id" value="<%= product.id %>" />
+                <input type="hidden" name="quantity" value="1" />
+                <input type="hidden" name="redirect" value="/#shop" />
+                <button type="submit" class="btn btn-sm btn-primary">Add</button>
+              </form>
+            </div>
+          </div>
+        </article>
+        <% }); %>
+      </div>
+    </div>
+    <% }); %>
+    <% if (!products || !products.length) { %>
+    <p class="muted">Groceries are loading — if this message stays, run the SQL in <code>sql/</code> or set <code>SYNC_DB=true</code> once with seed data.</p>
+    <% } %>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="container narrow">
+    <h2 class="section-title">Questions or a custom order?</h2>
+    <p class="muted">Reach the Deliveru team — we reply with next steps and availability for your neighborhood.</p>
+    <% if (typeof contactSent !== 'undefined' && contactSent) { %>
+    <p class="banner banner-success" role="status">Thanks — your message was sent.</p>
+    <% } %>
+    <% if (typeof contactError !== 'undefined' && contactError) { %>
+    <p class="banner banner-error" role="alert">Please fill in your name, email, and message.</p>
+    <% } %>
+    <form class="form-stack" method="post" action="/contact">
+      <label class="field">
+        <span>Name</span>
+        <input type="text" name="name" required autocomplete="name" />
+      </label>
+      <label class="field">
+        <span>Email</span>
+        <input type="email" name="email" required autocomplete="email" />
+      </label>
+      <label class="field">
+        <span>Neighborhood or company (optional)</span>
+        <input type="text" name="company" autocomplete="organization" />
+      </label>
+      <label class="field">
+        <span>Message</span>
+        <textarea name="message" rows="5" required></textarea>
+      </label>
+      <button type="submit" class="btn btn-primary">Send message</button>
+    </form>
+    <% if (whatsappNumber) { %>
+    <p class="muted"><a href="https://wa.me/<%= whatsappNumber %>" target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a></p>
+    <% } %>
+  </div>
+</section>

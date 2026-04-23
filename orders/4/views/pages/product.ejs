@@ -1,0 +1,24 @@
+<div class="container product-page">
+  <nav class="crumb muted" aria-label="Breadcrumb"><a href="/">Home</a> <span aria-hidden="true">/</span> <span><%= product.name %></span></nav>
+  <div class="product-detail">
+    <div class="product-detail-media">
+      <img src="<%= productImageUrl(product) %>" alt="" width="960" height="720" loading="eager" decoding="async" />
+    </div>
+    <div class="product-detail-body">
+      <p class="eyebrow"><%= categoryLabel(product.category) %></p>
+      <h1><%= product.name %></h1>
+      <p class="lead"><%= product.description %></p>
+      <p class="price price-lg">$<%= formatMoney(product.priceCents) %></p>
+      <form class="product-add-form" method="post" action="/cart/add">
+        <input type="hidden" name="product_id" value="<%= product.id %>" />
+        <label class="field inline-qty">
+          <span class="sr-only">Quantity</span>
+          <input type="number" name="quantity" min="1" max="99" value="1" />
+        </label>
+        <input type="hidden" name="redirect" value="/p/<%= product.slug %>" />
+        <button type="submit" class="btn btn-primary">Add to cart</button>
+      </form>
+      <p class="muted"><a href="/#shop">&larr; Back to shop</a></p>
+    </div>
+  </div>
+</div>

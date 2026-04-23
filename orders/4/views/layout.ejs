@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= typeof pageTitle !== 'undefined' ? pageTitle : 'Deliveru' %></title>
+  <meta name="description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : '' %>" />
+  <link rel="canonical" href="<%= siteUrl %><%= typeof canonicalPath !== 'undefined' ? canonicalPath : '' %>" />
+  <meta property="og:title" content="<%= typeof pageTitle !== 'undefined' ? pageTitle : 'Deliveru' %>" />
+  <meta property="og:description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : '' %>" />
+  <meta property="og:url" content="<%= siteUrl %><%= typeof canonicalPath !== 'undefined' ? canonicalPath : '' %>" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <% if (gaId) { %>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=<%= gaId %>"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '<%= gaId %>');
+  </script>
+  <% } %>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/">Deliveru</a>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>Menu</button>
+      <nav id="site-nav" class="site-nav" data-nav>
+        <a href="#how">How it works</a>
+        <a href="#shop">Shop</a>
+        <a href="#contact">Contact</a>
+        <% if (typeof cartCount !== 'undefined' && cartCount > 0) { %>
+        <a href="/cart" class="cart-pill" aria-label="Shopping cart">Cart <strong><%= cartCount %></strong></a>
+        <% } else { %>
+        <a href="/cart">Cart</a>
+        <% } %>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <%- body %>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo footer-logo">Deliveru</span>
+        <p class="muted">Fresh grocery delivery for busy households — honest pricing, sensible staples, and delivery windows you can plan around.</p>
+      </div>
+      <div class="footer-meta muted">
+        <span>&copy; <%= new Date().getFullYear() %> Deliveru · Custom Website Creation — John&apos;s Workspace</span>
+      </div>
+    </div>
+  </footer>
+  <script src="/js/main.js" defer></script>
+</body>
+</html>
