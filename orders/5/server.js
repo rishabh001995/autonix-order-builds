@@ -28,6 +28,15 @@ const clientLogoUrl =
 const clientHeroUrl =
   (process.env.CLIENT_HERO_URL || '').trim() || `${assetsBase}/1776965099108-dkscb024-hero_image.png`;
 
+function absoluteAssetUrl(req, urlPath) {
+  const u = (urlPath || '').toString().trim();
+  if (!u) return '';
+  if (/^https?:\/\//i.test(u)) return u;
+  const base = (process.env.SITE_URL || `${req.protocol}://${req.get('host')}`).replace(/\/$/, '');
+  const pathPart = u.startsWith('/') ? u : `/${u}`;
+  return `${base}${pathPart}`;
+}
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(expressLayouts);
@@ -139,12 +148,14 @@ app.use(async (req, res, next) => {
   res.locals.canonicalPath = req.path.split('?')[0] || '/';
   res.locals.gaId = process.env.GA_MEASUREMENT_ID || '';
   res.locals.whatsappNumber = process.env.WHATSAPP_NUMBER || '';
+  res.locals.contactEmail = (process.env.CONTACT_EMAIL || '').trim();
   res.locals.pageTitle = 'Hippo';
   res.locals.metaDescription = defaultMeta;
   res.locals.formatMoney = formatMoney;
   res.locals.productImageUrl = productImageUrl;
   res.locals.clientLogoUrl = clientLogoUrl;
   res.locals.clientHeroUrl = clientHeroUrl;
+  res.locals.ogImageUrl = absoluteAssetUrl(req, clientHeroUrl);
   try {
     const cartSum = await getCartSummary(req);
     res.locals.cartCount = cartSum.count;
