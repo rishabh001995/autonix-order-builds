@@ -1,0 +1,53 @@
+<div class="container page-hero">
+  <h1>Shop</h1>
+  <p>Add dishes to your cart and complete checkout — we will confirm timing and fulfillment by email.</p>
+</div>
+
+<section class="section section-tight">
+  <div class="container">
+    <% 
+      const categoryLabel = (c) => {
+        if (c === 'mains') return 'Mains';
+        if (c === 'sides') return 'Sides & salads';
+        if (c === 'dessert') return 'Dessert';
+        if (c === 'drinks') return 'Drinks';
+        return (c || '').charAt(0).toUpperCase() + (c || '').slice(1);
+      };
+      const byCat = {};
+      (products || []).forEach((p) => {
+        const k = p.category || 'mains';
+        if (!byCat[k]) byCat[k] = [];
+        byCat[k].push(p);
+      });
+      const order = ['mains', 'sides', 'dessert', 'drinks'];
+      const keys = order.filter((k) => byCat[k]).concat(Object.keys(byCat).filter((k) => !order.includes(k)).sort());
+    %>
+    <% keys.forEach((cat) => { %>
+      <div class="section-head" style="margin-top: 2rem;">
+        <h2><%= categoryLabel(cat) %></h2>
+      </div>
+      <div class="card-grid">
+        <% byCat[cat].forEach((product) => { %>
+        <article class="card">
+          <a href="/shop/<%= product.slug %>" class="card-media">
+            <img src="<%= productImageUrl(product) %>" alt="" width="600" height="450" loading="lazy" />
+          </a>
+          <div class="card-body">
+            <h3><a href="/shop/<%= product.slug %>" style="text-decoration:none;color:inherit;"><%= product.name %></a></h3>
+            <p style="margin:0;color:var(--text-muted);font-size:0.95rem;flex:1;"><%= product.description.slice(0, 120) %><%= product.description.length > 120 ? '…' : '' %></p>
+            <div class="card-meta">
+              <span class="price">$<%= formatMoney(product.priceCents) %></span>
+              <form method="post" action="/cart/add" style="margin:0;">
+                <input type="hidden" name="product_id" value="<%= product.id %>" />
+                <input type="hidden" name="quantity" value="1" />
+                <input type="hidden" name="redirect" value="/shop" />
+                <button type="submit" class="btn btn-primary" style="padding:0.5rem 1rem;font-size:0.85rem;">Add to cart</button>
+              </form>
+            </div>
+          </div>
+        </article>
+        <% }); %>
+      </div>
+    <% }); %>
+  </div>
+</section>
