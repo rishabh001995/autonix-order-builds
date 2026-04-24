@@ -1,0 +1,41 @@
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow reveal" data-reveal>Featured properties</p>
+    <h1 class="display display--sm reveal" data-reveal>Listings curated for location and longevity</h1>
+    <p class="lead muted reveal" data-reveal>
+      Each Landzer featured home is chosen for walkability, light, and sensible floor plans — the details buyers still care about after the open house ends.
+    </p>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container listing-grid">
+    <% listings.forEach(function (listing, i) { %>
+    <article class="listing-card reveal" data-reveal style="--delay: <%= i * 60 %>ms">
+      <a class="listing-media" href="/contact?property=<%= encodeURIComponent(listing.slug) %>">
+        <img src="<%= listing.image %>" alt="" loading="lazy" width="640" height="420" />
+        <span class="listing-tag"><%= listing.tag %></span>
+      </a>
+      <div class="listing-body">
+        <h2 class="listing-title"><a href="/contact?property=<%= encodeURIComponent(listing.slug) %>"><%= listing.title %></a></h2>
+        <p class="listing-price"><%= listing.priceLabel %></p>
+        <ul class="listing-meta">
+          <li><%= listing.beds %> bed<% if (listing.beds !== 1) { %>s<% } %></li>
+          <li><%= listing.baths %> bath<% if (listing.baths !== 1) { %>s<% } %></li>
+          <li><%= listing.sqft.toLocaleString() %> sq ft</li>
+        </ul>
+        <p class="muted"><%= listing.blurb %></p>
+        <a class="text-link" href="/contact?property=<%= encodeURIComponent(listing.slug) %>">Schedule a private tour →</a>
+      </div>
+    </article>
+    <% }); %>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container narrow center-text reveal" data-reveal>
+    <h2 class="section-title">Not seeing the right fit?</h2>
+    <p class="muted">We maintain off-market and coming-soon inventory for qualified buyers. Share your criteria and we will match you before listings hit the feed.</p>
+    <a class="btn btn--primary" href="/contact">Share your search</a>
+  </div>
+</section>
