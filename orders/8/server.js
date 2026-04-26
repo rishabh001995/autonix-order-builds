@@ -25,6 +25,24 @@ const assetsBase = (process.env.CLIENT_ASSETS_BASE || '/uploads/website-client-a
 const defaultLogoPath = `${assetsBase}/1777098886598-qalvenn3-sood-mort-logo.png`;
 const clientLogoUrl = (process.env.CLIENT_LOGO_URL || defaultLogoPath).trim();
 
+/** Curated stock photography (Unsplash) — placeholders until client supplies imagery. CSP allows images.unsplash.com. */
+function unsplashPhoto(path, w = 1200) {
+  const p = path.replace(/^\//, '');
+  return `https://images.unsplash.com/${p}?auto=format&fit=crop&w=${w}&q=82`;
+}
+
+const placeholderImages = {
+  homeHero: unsplashPhoto('photo-1600585154526-990dce657e37', 1400),
+  homeProcess: unsplashPhoto('photo-1554224154-26032ffc991d', 1200),
+  homeClosing: unsplashPhoto('photo-1560518883-ce09059eedffa', 1000),
+  aboutOffice: unsplashPhoto('photo-1497366216548-37526070297c', 1200),
+  servicePurchase: unsplashPhoto('photo-1600596542815-ffad4c1539a9', 1100),
+  serviceRefi: unsplashPhoto('photo-1519710164239-da123dc03ef4', 1100),
+  serviceComplex: unsplashPhoto('photo-1454165804606-c3d57bc86b40', 1100),
+  resources: unsplashPhoto('photo-1507842217343-583bb7270b66', 1200),
+  contact: unsplashPhoto('photo-1423666639041-f56000c27a9a', 1000),
+};
+
 function absoluteAssetUrl(req, urlPath) {
   const u = (urlPath || '').toString().trim();
   if (!u) return '';
@@ -90,6 +108,7 @@ app.use((req, res, next) => {
   res.locals.clientAssetsBase = assetsBase;
   res.locals.clientLogoUrl = clientLogoUrl;
   res.locals.ogImageUrl = absoluteAssetUrl(req, clientLogoUrl) || `${res.locals.siteUrl}/favicon.svg`;
+  res.locals.images = placeholderImages;
   next();
 });
 

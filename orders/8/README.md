@@ -82,6 +82,10 @@ pm2 save
 
 Returns JSON: `{ "ok": true, "service": "autonix-order-8", "time": "..." }`.
 
+## Imagery
+
+Section photos are **curated Unsplash placeholders** (mortgage-adjacent: homes, desk work, office, keys, books, contact). They load from `https://images.unsplash.com/` with grayscale styling in CSS; swap URLs in `server.js` (`placeholderImages`) or replace with paths under your CDN when you have final assets. Helmet CSP already allows `images.unsplash.com`.
+
 ## Pages
 
 1. **Home** (`/`) — value proposition, process, CTAs  

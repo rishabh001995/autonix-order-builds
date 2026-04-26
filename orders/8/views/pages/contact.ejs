@@ -1,6 +1,6 @@
 <section class="page-hero page-hero--compact">
   <div class="container split split--contact">
-    <div>
+    <div class="contact-main">
       <p class="eyebrow reveal" data-reveal>Contact</p>
       <h1 class="display display--sm reveal" data-reveal style="--delay: 40ms">Start the conversation</h1>
       <p class="muted reveal" data-reveal style="--delay: 80ms">
@@ -15,26 +15,38 @@
       <% if (error) { %>
       <p class="banner banner--err reveal" data-reveal role="alert">Something went wrong. Please check the form and try again.</p>
       <% } %>
+      <form class="card form-card reveal" data-reveal style="--delay: 60ms" method="post" action="/contact" novalidate>
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="company">Company <span class="optional">(optional)</span></label>
+          <input id="company" name="company" type="text" autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label for="message">How can we help?</label>
+          <textarea id="message" name="message" rows="5" required><%= typeof initialMessage !== 'undefined' ? initialMessage : '' %></textarea>
+        </div>
+        <button class="btn btn--primary btn--block" type="submit">Send message</button>
+        <p class="small muted">By submitting, you agree we may respond using the contact details provided — for this inquiry only. We do not sell your information.</p>
+      </form>
     </div>
-    <form class="card form-card reveal" data-reveal style="--delay: 60ms" method="post" action="/contact" novalidate>
-      <div class="field">
-        <label for="name">Name</label>
-        <input id="name" name="name" type="text" autocomplete="name" required />
-      </div>
-      <div class="field">
-        <label for="email">Email</label>
-        <input id="email" name="email" type="email" autocomplete="email" required />
-      </div>
-      <div class="field">
-        <label for="company">Company <span class="optional">(optional)</span></label>
-        <input id="company" name="company" type="text" autocomplete="organization" />
-      </div>
-      <div class="field">
-        <label for="message">How can we help?</label>
-        <textarea id="message" name="message" rows="5" required><%= typeof initialMessage !== 'undefined' ? initialMessage : '' %></textarea>
-      </div>
-      <button class="btn btn--primary btn--block" type="submit">Send message</button>
-      <p class="small muted">By submitting, you agree we may respond using the contact details provided — for this inquiry only. We do not sell your information.</p>
-    </form>
+    <aside class="contact-aside reveal" data-reveal style="--delay: 40ms" data-parallax="subtle">
+      <figure class="media-frame">
+        <img
+          src="<%= images.contact %>"
+          alt="Envelope on wood surface — we reply to every inquiry with clear next steps"
+          width="1000"
+          height="1000"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </aside>
   </div>
 </section>
