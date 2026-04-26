@@ -26,28 +26,52 @@
         </div>
       </dl>
     </div>
-    <aside class="hero-panel card reveal" data-reveal style="--delay: 80ms">
-      <p class="panel-kicker">Why clients choose us</p>
-      <h2 class="h3">Corporate clarity, not sales pressure</h2>
-      <ul class="checklist">
-        <li>Side-by-side scenarios for rate, term, and cash-to-close — in plain language.</li>
-        <li>Underwriting readiness: we flag gaps early so you are not surprised at the eleventh hour.</li>
-        <li>Coordination with your real estate agent and title partner when timelines tighten.</li>
-      </ul>
-      <a class="text-link" href="/about">Meet the brokerage →</a>
-    </aside>
+    <div class="hero-aside-stack">
+      <figure class="media-frame media-frame--hero reveal" data-reveal style="--delay: 40ms" data-parallax="subtle">
+        <img
+          src="<%= images.homeHero %>"
+          alt="Modern home exterior — representing purchase and refinance clients we serve"
+          width="1400"
+          height="933"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+        <figcaption class="media-caption">Residential financing — structured for clarity from first call to keys.</figcaption>
+      </figure>
+      <aside class="hero-panel card reveal" data-reveal style="--delay: 80ms">
+        <p class="panel-kicker">Why clients choose us</p>
+        <h2 class="h3">Corporate clarity, not sales pressure</h2>
+        <ul class="checklist">
+          <li>Side-by-side scenarios for rate, term, and cash-to-close — in plain language.</li>
+          <li>Underwriting readiness: we flag gaps early so you are not surprised at the eleventh hour.</li>
+          <li>Coordination with your real estate agent and title partner when timelines tighten.</li>
+        </ul>
+        <a class="text-link" href="/about">Meet the brokerage →</a>
+      </aside>
+    </div>
   </div>
 </section>
 
 <section class="section">
-  <div class="container split">
-    <div class="reveal" data-reveal>
+  <div class="container split split--media">
+    <div class="split-copy reveal" data-reveal>
       <h2 class="section-title">Built for the mortgage process as it exists today</h2>
       <p class="muted">
         The <strong>Mortgage Broker</strong> channel exists to widen your options while keeping a single point of accountability. We prioritize compliant disclosure, realistic timelines, and a file that stands up to investor guidelines — because a smooth closing protects your deposit and your peace of mind.
       </p>
     </div>
-    <div class="card card--accent reveal" data-reveal style="--delay: 60ms">
+    <figure class="media-frame media-frame--tall split-image reveal" data-reveal style="--delay: 50ms" data-parallax="subtle">
+      <img
+        src="<%= images.homeProcess %>"
+        alt="Desk with documents and laptop — documentation-first mortgage advisory"
+        width="1200"
+        height="900"
+        loading="lazy"
+        decoding="async"
+      />
+    </figure>
+    <div class="card card--accent split-quote reveal" data-reveal style="--delay: 60ms">
       <p class="pull-quote">“We treat every application like it will be audited tomorrow — because disciplined files close on time.”</p>
       <p class="muted small">— Sood Mortgages Group advisory standard</p>
     </div>
@@ -60,8 +84,18 @@
       <h2 class="section-title">How we work with you</h2>
       <p class="muted narrow-inline">Three stages with defined outputs — so you always know what we need next and why it matters.</p>
     </div>
-    <div class="steps">
-      <article class="step-card reveal" data-reveal>
+    <div class="steps steps--with-image">
+      <figure class="media-frame media-frame--steps reveal" data-reveal data-parallax="subtle">
+        <img
+          src="<%= images.homeClosing %>"
+          alt="Hands exchanging keys — milestone of a successful home closing"
+          width="1000"
+          height="667"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <article class="step-card reveal" data-reveal style="--delay: 40ms">
         <span class="step-index">01</span>
         <h3>Qualify &amp; structure</h3>
         <p class="muted">Goals, income documentation, credit profile, and property type — aligned before we request lender disclosures.</p>
