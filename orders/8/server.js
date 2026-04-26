@@ -25,22 +25,26 @@ const assetsBase = (process.env.CLIENT_ASSETS_BASE || '/uploads/website-client-a
 const defaultLogoPath = `${assetsBase}/1777098886598-qalvenn3-sood-mort-logo.png`;
 const clientLogoUrl = (process.env.CLIENT_LOGO_URL || defaultLogoPath).trim();
 
-/** Curated stock photography (Unsplash) — placeholders until client supplies imagery. CSP allows images.unsplash.com. */
-function unsplashPhoto(path, w = 1200) {
-  const p = path.replace(/^\//, '');
-  return `https://images.unsplash.com/${p}?auto=format&fit=crop&w=${w}&q=82`;
-}
+/**
+ * Self-hosted placeholder photography under /public/images/placeholders/
+ * (fixed-seed Picsum downloads committed to the repo) so images load even when
+ * external CDNs are blocked on a deploy network.
+ */
+const ph = (name) => `/images/placeholders/${name}.jpg`;
 
 const placeholderImages = {
-  homeHero: unsplashPhoto('photo-1600585154526-990dce657e37', 1400),
-  homeProcess: unsplashPhoto('photo-1554224154-26032ffc991d', 1200),
-  homeClosing: unsplashPhoto('photo-1560518883-ce09059eedffa', 1000),
-  aboutOffice: unsplashPhoto('photo-1497366216548-37526070297c', 1200),
-  servicePurchase: unsplashPhoto('photo-1600596542815-ffad4c1539a9', 1100),
-  serviceRefi: unsplashPhoto('photo-1519710164239-da123dc03ef4', 1100),
-  serviceComplex: unsplashPhoto('photo-1454165804606-c3d57bc86b40', 1100),
-  resources: unsplashPhoto('photo-1507842217343-583bb7270b66', 1200),
-  contact: unsplashPhoto('photo-1423666639041-f56000c27a9a', 1000),
+  homeHero: ph('home-hero'),
+  homeProcess: ph('home-process'),
+  homeClosing: ph('home-closing'),
+  homeLender: ph('home-lender'),
+  homeFamily: ph('home-family'),
+  aboutOffice: ph('about-office'),
+  aboutTeam: ph('about-team'),
+  servicePurchase: ph('service-purchase'),
+  serviceRefi: ph('service-refi'),
+  serviceComplex: ph('service-complex'),
+  resources: ph('resources'),
+  contact: ph('contact'),
 };
 
 function absoluteAssetUrl(req, urlPath) {
@@ -66,7 +70,7 @@ const helmetBase = {
           'script-src': ["'self'", 'https://www.googletagmanager.com', "'unsafe-inline'"],
           'connect-src': ["'self'", 'https://www.google-analytics.com'],
           'font-src': ["'self'", 'https://fonts.gstatic.com'],
-          'img-src': ["'self'", 'data:', 'https:', 'https://images.unsplash.com'],
+          'img-src': ["'self'", 'data:', 'https:'],
           'style-src': ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"],
         },
       }
@@ -78,7 +82,7 @@ const helmetBase = {
           fontSrc: ["'self'", 'https://fonts.gstatic.com'],
           formAction: ["'self'"],
           frameAncestors: ["'self'"],
-          imgSrc: ["'self'", 'data:', 'https:', 'https://images.unsplash.com'],
+          imgSrc: ["'self'", 'data:', 'https:'],
           objectSrc: ["'none'"],
           scriptSrc: ["'self'", 'https://www.googletagmanager.com', "'unsafe-inline'"],
           scriptSrcAttr: ["'none'"],

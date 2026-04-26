@@ -84,7 +84,7 @@ Returns JSON: `{ "ok": true, "service": "autonix-order-8", "time": "..." }`.
 
 ## Imagery
 
-Section photos are **curated Unsplash placeholders** (mortgage-adjacent: homes, desk work, office, keys, books, contact). They load from `https://images.unsplash.com/` with grayscale styling in CSS; swap URLs in `server.js` (`placeholderImages`) or replace with paths under your CDN when you have final assets. Helmet CSP already allows `images.unsplash.com`.
+Section photos are **self-hosted JPEG placeholders** under `public/images/placeholders/` (fixed-seed images from [Lorem Picsum](https://picsum.photos), committed so they load without relying on an external image CDN — helpful when deploy networks block third-party hosts). URLs are mapped in `server.js` (`placeholderImages`). The client logo still defaults to `CLIENT_LOGO_URL` / Autonix upload paths under `CLIENT_ASSETS_BASE`. Replace placeholder files or point `placeholderImages` at your own photography when ready.
 
 ## Pages
 
