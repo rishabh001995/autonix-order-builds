@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= typeof pageTitle !== 'undefined' ? pageTitle : 'Sood Mortgages Group' %></title>
+  <meta name="description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : '' %>" />
+  <link rel="canonical" href="<%= siteUrl %><%= typeof canonicalPath !== 'undefined' ? canonicalPath : '' %>" />
+  <meta property="og:title" content="<%= typeof pageTitle !== 'undefined' ? pageTitle : 'Sood Mortgages Group' %>" />
+  <meta property="og:description" content="<%= typeof metaDescription !== 'undefined' ? metaDescription : '' %>" />
+  <meta property="og:url" content="<%= siteUrl %><%= typeof canonicalPath !== 'undefined' ? canonicalPath : '' %>" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="<%= typeof ogImageUrl !== 'undefined' ? ogImageUrl : siteUrl %>" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <% if (gaId) { %>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=<%= gaId %>"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '<%= gaId %>');
+  </script>
+  <% } %>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
+  <header class="site-header" data-header>
+    <div class="container header-inner">
+      <a class="brand" href="/">
+        <% if (clientLogoUrl) { %>
+        <img class="brand-logo" src="<%= clientLogoUrl %>" alt="Sood Mortgages Group" width="160" height="48" />
+        <% } else { %>
+        <span class="brand-wordmark">Sood Mortgages Group</span>
+        <% } %>
+        <span class="brand-tag">Mortgage brokerage</span>
+      </a>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>Menu</button>
+      <nav id="site-nav" class="site-nav" data-nav>
+        <a href="/">Home</a>
+        <a href="/services">Services</a>
+        <a href="/about">About</a>
+        <a href="/resources">Resources</a>
+        <a class="nav-cta" href="/contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <%- body %>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">Sood Mortgages Group</div>
+        <p class="muted">Corporate mortgage advisory — structured underwriting support, transparent options, and a steady hand from application to closing.</p>
+      </div>
+      <div>
+        <h2 class="footer-heading">Explore</h2>
+        <ul class="footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/resources">Resources</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="footer-heading">Connect</h2>
+        <ul class="footer-links">
+          <li><a href="/contact">Request a consultation</a></li>
+          <% if (contactEmail) { %>
+          <li><a href="mailto:<%= contactEmail %>">Email us</a></li>
+          <% } %>
+          <% if (whatsappNumber) { %>
+          <li><a href="https://wa.me/<%= whatsappNumber %>" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>&copy; <%= new Date().getFullYear() %> Sood Mortgages Group · Mortgage Broker · Custom Website Creation — John&apos;s Workspace</span>
+    </div>
+  </footer>
+  <script src="/js/main.js" defer></script>
+</body>
+</html>
